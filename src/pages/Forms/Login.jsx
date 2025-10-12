@@ -6,11 +6,11 @@ export default function Login() {
 
   const handleLogin = () => {
     localStorage.setItem("auth", "true");
-    navigate("/perfil/usuario123");
+    navigate("/Users");
   };
 
   return (
-    <Container className="mt-5" style={{ maxWidth: 400 }}>
+    <Container className="mt-5 " style={{ maxWidth: 400 }}>
       <h2>Iniciar sesión</h2>
       <Form>
         <Form.Group className="mb-3">

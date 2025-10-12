@@ -10,11 +10,8 @@ export default function NavBar() {
 
   const closeSession = () => {
     localStorage.removeItem("auth");
-    navigate("/");
+    navigate("/Login");
   };
-
-  const [showLogin, setShowLogin] = React.useState(false);
-  const [showRegister, setShowRegister] = React.useState(false);
 
   return (
     <Navbar
@@ -43,7 +40,7 @@ export default function NavBar() {
                   title={<span style={{ color: "white" }}>Administración</span>}
                   menuVariant="dark"
                 >
-                  <NavDropdown.Item as={Link} to="/Login">
+                  <NavDropdown.Item as={Link} to="/Users">
                     Clientes
                   </NavDropdown.Item>
                   <NavDropdown.Item as={Link} to="/Admin">
@@ -62,7 +59,7 @@ export default function NavBar() {
           </Nav>
           <Nav>
             {!isAuth && (
-              <div>
+              <>
                 <NavDropdown
                   id="nav-dropdown-dark-example"
                   title={<span style={{ color: "white" }}>Login</span>}
@@ -76,7 +73,7 @@ export default function NavBar() {
                     Regístrate
                   </NavDropdown.Item>
                 </NavDropdown>
-              </div>
+              </>
             )}
           </Nav>
         </Navbar.Collapse>

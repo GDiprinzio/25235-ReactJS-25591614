@@ -14,7 +14,7 @@ import Admin from "./pages/Admin/Admin";
 import Cart from "./pages/Cart/Cart";
 import Login from "./pages/Forms/Login";
 import UserRegis from "./pages/Forms/userRegis";
-
+import Users from "./pages/Users/Users";
 //CSS
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
@@ -28,7 +28,14 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/Store" element={<Store />} />
-
+            <Route
+              path="/Users"
+              element={
+                <P_Route>
+                  <Users />
+                </P_Route>
+              }
+            />
             <Route
               path="/Admin"
               element={
