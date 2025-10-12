@@ -1,6 +1,5 @@
-import { useState } from "react";
-import { Container } from "react-bootstrap";
+const Cart = () => {
+  return <>CART</>;
+};
 
-export default function Cart() {
-  return <div>Cart</div>;
-}
+export default Cart;
