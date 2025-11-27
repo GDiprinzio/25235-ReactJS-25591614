@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, Button } from "react-bootstrap";
 
-export default function ProductCard({ prod, addCart }) {
+export default function ProductCard({ prod, addToCart }) {
   return (
     <Card className="card-product h-100 shadow-sm">
       <Card.Img
@@ -21,7 +21,7 @@ export default function ProductCard({ prod, addCart }) {
         <Card.Text className="fw-bold text-primary">${prod.price}</Card.Text>
       </Card.Body>
       <Card.Footer className="text-center">
-        <Button variant="primary" size="sm" onClick={() => addCart(prod)}>
+        <Button variant="primary" size="sm" onClick={() => addToCart(prod)}>
           Comprar
         </Button>
       </Card.Footer>

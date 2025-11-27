@@ -1,45 +1,53 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Container, Row, Col, Nav, Spinner, Alert } from "react-bootstrap";
-import ProductCard from "../../Components/ProductCard/ProductCard";
+import ProductCard from "../../components/ProductCard/ProductCard";
+import { productsContext } from "../../context/productsContext";
+import { useCart } from "../../context/cartContext";
 
 const Category = ["laptops", "smartphones", "tablets"];
 
 function Store() {
-  const [products, setProducts] = useState({});
+  const { products } = useContext(productsContext);
+  const { addToCart } = useCart();
   const [activeTab, setActiveTab] = useState("laptops");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [cartMsg, setCartMsg] = useState(null);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await Promise.all(
-          Category.map((cat) =>
-            fetch(`https://dummyjson.com/products/category/${cat}`).then(
-              (res) => res.json()
-            )
-          )
-        );
-        const data = {};
-        Category.forEach((cat, i) => {
-          data[cat] = response[i].products;
-        });
-        setProducts(data);
-        setLoading(false);
-      } catch (err) {
-        setError("Error al traer productos");
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, []);
+    if (products && Object.keys(products).length > 0) {
+      setLoading(false);
+    } else {
+      setLoading(true);
+    }
+  }, [products]);
 
-  const handleAddCart = (prod) => {
-    alert(`El producto ${prod.title} se agrego al carrito.`);
+  const handleAddCart = (product) => {
+    addToCart(product);
+    setCartMsg({
+      type: "success",
+      text: `Producto "${product.title}" agregado al carrito.`,
+    });
+    setTimeout(() => {
+      setCartMsg(null);
+    }, 3000);
   };
 
   return (
     <Container className="mt-4 containerStore">
+      {cartMsg && (
+        <Row>
+          <Col>
+            <Alert
+              variant={cartMsg.type}
+              onClose={() => setCartMsg(null)}
+              dismissible
+            >
+              {cartMsg.text}
+            </Alert>
+          </Col>
+        </Row>
+      )}
       <Row>
         <Col>
           <h2>Nuestro catálogo de Productos.</h2>
@@ -75,9 +83,9 @@ function Store() {
         )}
         {!loading &&
           !error &&
-          products[activeTab]?.map((prod) => (
+          (products[activeTab] || []).map((prod) => (
             <Col md={4} className="mb-4" key={prod.id}>
-              <ProductCard prod={prod} addCart={handleAddCart} />
+              <ProductCard prod={prod} addToCart={handleAddCart} />
             </Col>
           ))}
       </Row>
