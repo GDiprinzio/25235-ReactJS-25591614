@@ -1,5 +1,7 @@
 import React, { useContext } from "react";
 import { Container, Row, Col, Button, Table, Form } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useCart } from "../../context/cartContext";
 
 const Cart = () => {
@@ -49,7 +51,10 @@ const Cart = () => {
                       variant="danger"
                       size="sm"
                       onClick={() => removeFromCart(item.id)}
+                      alt="Eliminar del carrito"
                     >
+                      {" "}
+                      <FontAwesomeIcon icon={faTrash} />
                       Eliminar
                     </Button>
                   </td>
@@ -63,8 +68,12 @@ const Cart = () => {
               <strong>Total: {getCartTotal().toFixed(2)} €</strong>
             </Col>
             <Col className="text-end">
-              <Button variant="secondary" onClick={clearCart}>
-                Vaciar carrito
+              <Button
+                variant="secondary"
+                onClick={clearCart}
+                alt="Vaciar carrito"
+              >
+                <FontAwesomeIcon icon={faTrash} /> Vaciar carrito
               </Button>
             </Col>
           </Row>

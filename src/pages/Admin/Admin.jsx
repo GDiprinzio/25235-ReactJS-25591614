@@ -9,6 +9,13 @@ import {
   Form,
   Alert,
 } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faTrash,
+  faEdit,
+  faArrowsRotate,
+  faPlus,
+} from "@fortawesome/free-solid-svg-icons";
 import { CrudContext } from "../../context/crudContext";
 
 export default function Admin() {
@@ -147,9 +154,11 @@ export default function Admin() {
         </Col>
         <Col className="text-end">
           <Button variant="secondary" onClick={() => reload()}>
-            Recargar
+            <FontAwesomeIcon icon={faArrowsRotate} /> Recargar
           </Button>{" "}
-          <Button onClick={openCreate}>Agregar producto</Button>
+          <Button onClick={openCreate}>
+            <FontAwesomeIcon icon={faPlus} /> Agregar producto
+          </Button>
         </Col>
       </Row>
 
@@ -204,15 +213,17 @@ export default function Admin() {
                         size="sm"
                         variant="outline-primary"
                         onClick={() => openEdit(p)}
+                        alt="Editar producto"
                       >
-                        Editar
+                        <FontAwesomeIcon icon={faEdit} />
                       </Button>{" "}
                       <Button
                         size="sm"
                         variant="outline-danger"
                         onClick={() => handleDelete(p.id)}
+                        alt="Eliminar producto"
                       >
-                        Eliminar
+                        <FontAwesomeIcon icon={faTrash} />
                       </Button>
                     </td>
                   </tr>
