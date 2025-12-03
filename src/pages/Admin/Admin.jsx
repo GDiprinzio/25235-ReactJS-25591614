@@ -8,6 +8,8 @@ import {
   Modal,
   Form,
   Alert,
+  OverlayTrigger,
+  Tooltip,
 } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -146,6 +148,13 @@ export default function Admin() {
     setMsg("Producto eliminado.");
   };
 
+  const tooltipEditar = () => (
+    <Tooltip id="tooltip-editar">Editar producto</Tooltip>
+  );
+
+  const tooltipEliminar = () => (
+    <Tooltip id="tooltip-eliminar">Eliminar producto</Tooltip>
+  );
   return (
     <Container className="mt-4">
       <Row className="mb-3">
@@ -209,22 +218,33 @@ export default function Admin() {
                     <td>{p.category}</td>
                     <td>{p.description?.slice(0, 80)}</td>
                     <td>
-                      <Button
-                        size="sm"
-                        variant="outline-primary"
-                        onClick={() => openEdit(p)}
-                        alt="Editar producto"
+                      <OverlayTrigger
+                        placement="top"
+                        delay={{ show: 250, hide: 400 }}
+                        overlay={tooltipEditar()}
                       >
-                        <FontAwesomeIcon icon={faEdit} />
-                      </Button>{" "}
-                      <Button
-                        size="sm"
-                        variant="outline-danger"
-                        onClick={() => handleDelete(p.id)}
-                        alt="Eliminar producto"
+                        <Button
+                          size="sm"
+                          variant="outline-primary"
+                          onClick={() => openEdit(p)}
+                        >
+                          <FontAwesomeIcon icon={faEdit} />
+                        </Button>
+                      </OverlayTrigger>{" "}
+                      <OverlayTrigger
+                        placement="top"
+                        delay={{ show: 250, hide: 400 }}
+                        overlay={tooltipEliminar()}
                       >
-                        <FontAwesomeIcon icon={faTrash} />
-                      </Button>
+                        <Button
+                          size="sm"
+                          variant="outline-danger"
+                          onClick={() => handleDelete(p.id)}
+                          alt="Eliminar producto"
+                        >
+                          <FontAwesomeIcon icon={faTrash} />
+                        </Button>
+                      </OverlayTrigger>
                     </td>
                   </tr>
                 ))
