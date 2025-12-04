@@ -19,6 +19,7 @@ import {
   faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { CrudContext } from "../../context/crudContext";
+import { toast } from "react-toastify";
 
 export default function Admin() {
   const {
@@ -145,7 +146,7 @@ export default function Admin() {
   const handleDelete = async (id) => {
     if (!window.confirm("¿Eliminar producto?")) return;
     await deleteProduct(id);
-    setMsg("Producto eliminado.");
+    toast.info("Producto eliminado.");
   };
 
   const tooltipEditar = () => (

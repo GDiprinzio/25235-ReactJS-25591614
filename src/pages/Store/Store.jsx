@@ -1,8 +1,9 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useCallback } from "react";
 import { Container, Row, Col, Nav, Spinner, Alert } from "react-bootstrap";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import { productsContext } from "../../context/productsContext";
 import { useCart } from "../../context/cartContext";
+import { toast } from "react-toastify";
 
 const Category = ["laptops", "smartphones", "tablets"];
 
@@ -22,16 +23,15 @@ function Store() {
     }
   }, [products]);
 
-  const handleAddCart = (product) => {
-    addToCart(product);
-    setCartMsg({
-      type: "success",
-      text: `Producto "${product.title}" agregado al carrito.`,
-    });
-    setTimeout(() => {
-      setCartMsg(null);
-    }, 3000);
-  };
+  const handleAddCart = useCallback(
+    (product) => {
+      addToCart(product);
+      toast.success(`"${product.title}" agregado al carrito.`, {
+        toastId: `add-${product.id}`, // evita duplicados
+      });
+    },
+    [addToCart]
+  );
 
   return (
     <Container className="mt-4 containerStore">

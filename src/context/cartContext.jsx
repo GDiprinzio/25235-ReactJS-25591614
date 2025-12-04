@@ -6,6 +6,7 @@ import React, {
   useMemo,
   useContext,
 } from "react";
+import { toast } from "react-toastify";
 
 const CartContext = createContext();
 
@@ -57,6 +58,7 @@ export const CartProvider = ({ children }) => {
 
   const removeFromCart = useCallback((productId) => {
     setCart((prev) => prev.filter((c) => String(c.id) !== String(productId)));
+    toast.info("Producto eliminado del carrito");
   }, []);
 
   const updateQuantity = useCallback((productId, quantity) => {
@@ -73,6 +75,7 @@ export const CartProvider = ({ children }) => {
 
   const clearCart = useCallback(() => {
     setCart([]);
+    toast.info("Carrito vaciado");
   }, []);
 
   const getCartTotal = useCallback(
